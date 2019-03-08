@@ -66,7 +66,6 @@ export default class App extends Component {
 
   clicar() {
     let state = this.state;
-
     if (state.desc == '' || state.valor == 0 || state.venc == '' ||
       state.desc == undefined || state.valor == undefined || state.venc == undefined) {
       alert('Falta preencher alguns campos...');
@@ -76,6 +75,7 @@ export default class App extends Component {
       state.desc = '';
       state.valor = '';
       state.venc = '';
+
 
       this.textInputDesc.clear();
       this.textInputValor.clear();
