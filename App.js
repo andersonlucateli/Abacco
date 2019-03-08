@@ -56,9 +56,9 @@ export default class App extends Component {
     }
 
     this.state = {
-      listData: [{ key: 1, desc: 'Telefone', valor: 49.00, venc: '10/09/2019' },
+      listData: [/*{ key: 1, desc: 'Telefone', valor: 49.00, venc: '10/09/2019' },
       { key: 2, desc: 'Luz', valor: 190.00, venc: '10/05/2019' },
-      { key: 3, desc: 'Pós', valor: 350.00, venc: '30/03/2019' }]
+    { key: 3, desc: 'Pós', valor: 350.00, venc: '30/03/2019' }*/]
     }
 
     this.clicar = this.clicar.bind(this);
@@ -67,13 +67,17 @@ export default class App extends Component {
   clicar() {
     let state = this.state;
     if (state.desc == '' || state.valor == 0 || state.venc == '') {
-      state.desc = 'Falta preencher alguns campos...';
+      alert('Falta preencher alguns campos... \n ' + state.desc + ' ' + state.valor + ' ' + state.venc);
+    } else {
+      state.listData.push({ key: 4, desc: state.desc, valor: state.valor, venc: state.venc });
+
+      state.desc = '';
       state.valor = '';
       state.venc = '';
 
-      alert(state.desc + state.valor + state.venc);
-    } else {
-      state.listData.push({ key: 4, desc: state.desc, valor: state.valor, venc: state.venc });
+      this.textInputDesc.clear();
+      this.textInputValor.clear();
+      this.textInputVenc.clear();
     }
 
     this.setState(state);
@@ -103,11 +107,14 @@ export default class App extends Component {
           <View style={styles.principal}>
 
             <TextInput style={styles.textoInput} placeholder="Digite o nome da conta..."
-              underlineColorAndroid='transparent' onChangeText={(desc) => this.setState({ desc })} />
+              underlineColorAndroid='transparent' onChangeText={(desc) => this.setState({desc})}
+              ref={input => { this.textInputDesc = input }} />
             <TextInput style={styles.textoInput} placeholder="Valor..."
-              underlineColorAndroid='transparent' keyboardType='numeric' onChangeText={(valor) => this.setState({ valor })} />
+              underlineColorAndroid='transparent' keyboardType='numeric' onChangeText={(valor) => this.setState({ valor })}
+              ref={input => { this.textInputValor = input }} />
             <TextInput style={styles.textoInput} placeholder="Vencimento..."
-              underlineColorAndroid='transparent' onChangeText={(venc) => this.setState({ venc })} />
+              underlineColorAndroid='transparent' onChangeText={(venc) => this.setState({ venc })}
+              ref={input => { this.textInputVenc = input }} />
 
             <Botao cor='#1a75ff' titulo='Adicionar' onPress={this.clicar} borda='2' />
           </View>
